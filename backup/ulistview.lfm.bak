@@ -13,6 +13,7 @@ object ListViewForm: TListViewForm
     Height = 663
     Top = 0
     Width = 646
+    Anchors = [akTop, akLeft, akRight, akBottom]
     Color = clWindow
     Columns = <>
     DataSource = DataSource
@@ -23,6 +24,7 @@ object ListViewForm: TListViewForm
     Height = 49
     Top = 664
     Width = 647
+    Anchors = [akLeft, akBottom]
     BevelOuter = bvNone
     ChildSizing.EnlargeHorizontal = crsScaleChilds
     ChildSizing.EnlargeVertical = crsScaleChilds

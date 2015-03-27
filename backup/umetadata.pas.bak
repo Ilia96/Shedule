@@ -13,6 +13,12 @@ type
     Name: String;
     Caption: String;
     Width: Integer;
+    Visible: Boolean;
+    ReferenceTableName: String;
+    ReferenceColumnFName: String;
+    ReferenceColumnSName: String;
+    ReferenceColumnCaption: String;
+    ReferenceColumnWidth: Integer;
   end;
 
   TTableInf = record
@@ -21,12 +27,15 @@ type
     Columns: array of TColumnInf;
   end;
 
-  { TTable }
+  { TTables }
 
   TTables = class
     TablesInf: array of TTableInf;
     procedure AddTableInf(AName, ACaption: String);
-    procedure AddColumnsInf(AName, ACaption: String; AWidth: Integer);
+    procedure AddColumnsInf(AName, ACaption: String; AWidth: Integer;
+      AVisible: Boolean; AReferenceTableName: String = '';
+      AReferenceColumnFName: String = ''; AReferenceColumnSName: String = '';
+      AReferenceColumnCaption: String = ''; AReferenceColumnWidth: Integer = 0);
   end;
 
 var
@@ -34,91 +43,111 @@ var
 
 implementation
 
-{ TTable }
+{ TTables }
 
 procedure TTables.AddTableInf(AName, ACaption: String);
 begin
   SetLength(TablesInf, Length(TablesInf) + 1);
-
   With TablesInf[High(TablesInf)] do
     begin
       Name := AName;
       Caption := ACaption;
     end;
-
 end;
 
-procedure TTables.AddColumnsInf(AName, ACaption: String; AWidth: Integer);
+procedure TTables.AddColumnsInf(AName, ACaption: String; AWidth: Integer;
+  AVisible: Boolean; AReferenceTableName: String = '';
+  AReferenceColumnFName: String = ''; AReferenceColumnSName: String = '';
+  AReferenceColumnCaption: String = ''; AReferenceColumnWidth: Integer = 0);
 begin
-
   With TablesInf[High(TablesInf)] do
     begin
       SetLength(Columns, Length(Columns) + 1);
-
       With Columns[High(Columns)] do
         begin
           Name := AName;
           Caption := ACaption;
           Width := AWidth;
+          Visible := AVisible;
+          ReferenceTableName := AReferenceTableName;
+          ReferenceColumnFName := AReferenceColumnFName;
+          ReferenceColumnSName := AReferenceColumnSName;
+          ReferenceColumnCaption := AReferenceColumnCaption;
+          ReferenceColumnWidth := AReferenceColumnWidth;
         end;
-
     end;
-
 end;
 
 initialization
 
 Tables := TTables.Create;
+With Tables do
+  begin
+    AddTableInf('Students', 'Студенты');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Имя', 150, True);
+    AddColumnsInf('Group_ID', 'ИН группы', 40, False, 'Groups', 'ID', 'Number',
+      'Имя Группы', 60);
 
-Table.AddTableInf('Students', 'Студенты');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Name', 'Имя', 150);
-Table.AddColumnsInf('Group_ID', 'ИН группы', 40);
+    AddTableInf('Groups', 'Группы');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Number', 'Номер', 60, True);
+    AddColumnsInf('Name', 'Имя', 150, True);
 
-Table.AddTableInf('Groups', 'Группы');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Number', 'Номер', 60);
-Table.AddColumnsInf('Name', 'Имя', 150);
+    AddTableInf('Teachers', 'Учителя');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Имя', 185, True);
 
-Table.AddTableInf('Teachers', 'Учителя');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Name', 'Имя', 185);
+    AddTableInf('Subjects', 'Предметы');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Имя', 180, True);
 
-Table.AddTableInf('Subjects', 'Предметы');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Name', 'Имя', 180);
+    AddTableInf('Audiences', 'Аудитории');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Имя', 50, True);
 
-Table.AddTableInf('Audiences', 'Аудитории');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Name', 'Имя', 50);
+    AddTableInf('Teachers_subjects', 'Учителя по предметам');
+    AddColumnsInf('Teacher_ID', 'ИН учителя', 50, False, 'Teachers', 'ID', 'Name',
+      'Имя Учителя', 185);
+    AddColumnsInf('Subject_ID', 'ИН предмета', 50, False, 'Subjects', 'ID', 'Name',
+      'Имя Предмета', 180);
 
-Table.AddTableInf('Teachers_subjects', 'Учителя по предметам');
-Table.AddColumnsInf('Teacher_ID', 'ИН учителя', 50);
-Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
+    AddTableInf('Group_subjects', 'Предметы по группам');
+    AddColumnsInf('Group_ID', 'ИН группы', 50, False, 'Groups', 'ID', 'Name',
+      'Имя', 150);
+    AddColumnsInf('Subject_ID', 'ИН предмета', 50, False, 'Subjects', 'ID', 'Name',
+      'Имя', 180);
 
-Table.AddTableInf('Group_subjects', 'Предметы по группам');
-Table.AddColumnsInf('Group_ID', 'ИН группы', 50);
-Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
+    AddTableInf('Weekdays', 'Дни недели');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Название', 70, True);
+    AddColumnsInf('Number', 'Номер', 70, True);
 
-Table.AddTableInf('Weekdays', 'Дни недели');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Name', 'Название', 70);
-Table.AddColumnsInf('Number', 'Номер', 70);
+    AddTableInf('Pairs', 'Пары');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Begin_Pair', 'Начало', 60, True);
+    AddColumnsInf('End_Pair', 'Конец', 60, True);
+    AddColumnsInf('Number', 'Номер', 30, True);
 
-Table.AddTableInf('Pairs', 'Пары');
-Table.AddColumnsInf('ID', 'ИН', 30);
-Table.AddColumnsInf('Begin', 'Начало', 60);
-Table.AddColumnsInf('End', 'Конец', 60);
-Table.AddColumnsInf('Number', 'Номер', 30);
+    AddTableInf('Educ_Activities', 'Образовательная деятельность');
+    AddColumnsInf('ID', 'ИН', 30, False);
+    AddColumnsInf('Name', 'Название', 50, True);
 
-Table.AddTableInf('Schedules', 'Расписание');
-Table.AddColumnsInf('Group_ID', 'ИН группы', 50);
-Table.AddColumnsInf('Weekday_ID', 'ИН недели', 50);
-Table.AddColumnsInf('Pair_ID', 'ИН пары', 50);
-Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
-Table.AddColumnsInf('Educ_ID', 'ИН пары', 50);
-Table.AddColumnsInf('Teacher_ID', 'ИН учителя', 50);
-Table.AddColumnsInf('Class_ID', 'ИН класса', 50);
-
+    AddTableInf('Schedules', 'Расписание');
+    AddColumnsInf('Group_ID', 'ИН группы', 50, False, 'Groups', 'ID', 'Name',
+      'Имя', 150);
+    AddColumnsInf('Weekday_ID', 'ИН недели', 50, False, 'Weekdays', 'ID', 'Name',
+     'Название', 70);
+    AddColumnsInf('Pair_ID', 'ИН пары', 50, False, 'Pairs', 'ID', 'Begin_Pair',
+      'Начало', 60);
+    AddColumnsInf('Subject_ID', 'ИН предмета', 50, False, 'Subjects', 'ID', 'Name',
+      'Имя', 180);
+    AddColumnsInf('Educ_ID', 'ИН пары', 50, False, 'Educ_Activities', 'ID', 'Name',
+      'Название', 50);
+    AddColumnsInf('Teacher_ID', 'ИН учителя', 50, False, 'Teachers', 'ID', 'Name',
+      'Имя', 185);
+    AddColumnsInf('Audience_ID', 'ИН класса', 50, False, 'Audiences', 'ID', 'Name',
+      'Имя', 50);
+  end;
 end.
 

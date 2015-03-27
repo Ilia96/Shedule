@@ -7,7 +7,7 @@ object MDDBConnection: TMDDBConnection
   object IBConnection: TIBConnection
     Connected = True
     LoginPrompt = False
-    DatabaseName = 'D:\Users\lipov.ima\Documents\DB\SCHEDULE.FDB'
+    DatabaseName = 'D:\Programs\University\2 semester\DB\SCHEDULE.FDB'
     KeepConnection = False
     Password = 'masterkey'
     Transaction = SQLTransaction

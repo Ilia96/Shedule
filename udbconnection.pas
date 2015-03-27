@@ -23,5 +23,7 @@ implementation
 
 {$R *.lfm}
 
+{ TMDDBConnection }
+
 end.
 

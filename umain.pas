@@ -50,17 +50,17 @@ var
   MenuItem: array of TMenuItem;
 
 begin
-  SetLength(MenuItem, Length(Table.TablesInf));
-  SetLength(ListViewForm, Length(Table.TablesInf));
+  SetLength(MenuItem, Length(Tables.TablesInf));
+  SetLength(ListViewForm, Length(Tables.TablesInf));
 
-  for i := 0 to Length(Table.TablesInf) - 1 do
+  for i := 0 to Length(Tables.TablesInf) - 1 do
     begin
       MenuItem[i] := TMenuItem.Create(Self);
       With MenuItem[i] do
         begin
           Tag := i;
-          Name := Table.TablesInf[i].Name;
-          Caption := Table.TablesInf[i].Caption;
+          Name := Tables.TablesInf[i].Name;
+          Caption := Tables.TablesInf[i].Caption;
           OnClick := @MenuItemClick;
         end;
     end;
@@ -81,7 +81,7 @@ end;
 procedure TMenuForm.FormClose(Sender: TObject; var CloseAction: TCloseAction);
 begin
   ReferenceMenu[(Sender as TForm).Tag].Checked := False;
-  ListViewForm[(Sender as TForm).Tag] := nil;
+  FreeAndNil(ListViewForm[(Sender as TForm).Tag]);
   CloseAction := caFree;
 end;
 

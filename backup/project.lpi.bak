@@ -39,7 +39,7 @@
         <PackageName Value="LCL"/>
       </Item3>
     </RequiredPackages>
-    <Units Count="6">
+    <Units Count="7">
       <Unit0>
         <Filename Value="project.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -82,6 +82,11 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="UAboutProgram"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="usqlrequest.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="USQLRequest"/>
+      </Unit6>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

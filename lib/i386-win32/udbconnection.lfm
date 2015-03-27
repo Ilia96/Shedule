@@ -5,7 +5,7 @@ object MDDBConnection: TMDDBConnection
   VerticalOffset = 125
   Width = 195
   object IBConnection: TIBConnection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     DatabaseName = 'D:\Programs\University\2 semester\DB\SCHEDULE.FDB'
     KeepConnection = False
