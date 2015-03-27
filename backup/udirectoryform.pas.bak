@@ -1,0 +1,65 @@
+unit udirectoryform;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils, sqldb, db, FileUtil, Forms, Controls, Graphics, Dialogs,
+  DBGrids, DbCtrls, Menus, UMetaData;
+
+type
+
+  { TDirectoryForm }
+
+  TDirectoryForm = class(TForm)
+    DataSource: TDataSource;
+    DBGrid1: TDBGrid;
+    DBNavigator1: TDBNavigator;
+    SQLQuery: TSQLQuery;
+    MenuItem: TMenuItem;
+    constructor CreateAndShowForm(ATag: Integer);
+    procedure FormClose(Sender: TObject; var CloseAction: TCloseAction);
+  end;
+
+var
+  DirectoryForm: array of TDirectoryForm;
+
+implementation
+
+{$R *.lfm}
+
+{ TDirectoryForm }
+
+constructor TDirectoryForm.CreateAndShowForm(ATag: Integer);
+begin
+
+  if DirectoryForm[ATag] = nil then
+    begin
+      DirectoryForm[ATag] := TDirectoryForm.Create(Self);
+
+      With DirectoryForm[ATag] do
+        begin
+          Tag := ATag;
+          Caption := Table.TablesInf[ATag].Caption;
+          Name := Table.TableInf[ATag].Name;
+          SQLQuery.Active := False;
+          SQLQuery.SQL.Text := 'Select * From ' +  Name;
+          SQLQuery.Active := True;
+        end;
+
+    end;
+
+  DirectoryForm[ATag].Show;
+end;
+
+procedure TDirectoryForm.FormClose(Sender: TObject;
+  var CloseAction: TCloseAction);
+begin
+  MenuItem[(Sender as TForm).Tag].Checked := False;
+  DirectoryForm[(Sender as TForm).Tag] := nil;
+  CloseAction := caFree;
+end;
+
+end.
+

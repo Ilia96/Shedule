@@ -1,0 +1,124 @@
+unit UMetaData;
+
+{$mode objfpc}{$H+}
+
+interface
+
+uses
+  Classes, SysUtils;
+
+type
+
+  TColumnInf = record
+    Name: String;
+    Caption: String;
+    Width: Integer;
+  end;
+
+  TTableInf = record
+    Name: String;
+    Caption: String;
+    Columns: array of TColumnInf;
+  end;
+
+  { TTable }
+
+  TTables = class
+    TablesInf: array of TTableInf;
+    procedure AddTableInf(AName, ACaption: String);
+    procedure AddColumnsInf(AName, ACaption: String; AWidth: Integer);
+  end;
+
+var
+  Tables: TTables;
+
+implementation
+
+{ TTable }
+
+procedure TTables.AddTableInf(AName, ACaption: String);
+begin
+  SetLength(TablesInf, Length(TablesInf) + 1);
+
+  With TablesInf[High(TablesInf)] do
+    begin
+      Name := AName;
+      Caption := ACaption;
+    end;
+
+end;
+
+procedure TTables.AddColumnsInf(AName, ACaption: String; AWidth: Integer);
+begin
+
+  With TablesInf[High(TablesInf)] do
+    begin
+      SetLength(Columns, Length(Columns) + 1);
+
+      With Columns[High(Columns)] do
+        begin
+          Name := AName;
+          Caption := ACaption;
+          Width := AWidth;
+        end;
+
+    end;
+
+end;
+
+initialization
+
+Tables := TTables.Create;
+
+Table.AddTableInf('Students', 'Студенты');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Name', 'Имя', 150);
+Table.AddColumnsInf('Group_ID', 'ИН группы', 40);
+
+Table.AddTableInf('Groups', 'Группы');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Number', 'Номер', 60);
+Table.AddColumnsInf('Name', 'Имя', 150);
+
+Table.AddTableInf('Teachers', 'Учителя');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Name', 'Имя', 185);
+
+Table.AddTableInf('Subjects', 'Предметы');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Name', 'Имя', 180);
+
+Table.AddTableInf('Audiences', 'Аудитории');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Name', 'Имя', 50);
+
+Table.AddTableInf('Teachers_subjects', 'Учителя по предметам');
+Table.AddColumnsInf('Teacher_ID', 'ИН учителя', 50);
+Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
+
+Table.AddTableInf('Group_subjects', 'Предметы по группам');
+Table.AddColumnsInf('Group_ID', 'ИН группы', 50);
+Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
+
+Table.AddTableInf('Weekdays', 'Дни недели');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Name', 'Название', 70);
+Table.AddColumnsInf('Number', 'Номер', 70);
+
+Table.AddTableInf('Pairs', 'Пары');
+Table.AddColumnsInf('ID', 'ИН', 30);
+Table.AddColumnsInf('Begin', 'Начало', 60);
+Table.AddColumnsInf('End', 'Конец', 60);
+Table.AddColumnsInf('Number', 'Номер', 30);
+
+Table.AddTableInf('Schedules', 'Расписание');
+Table.AddColumnsInf('Group_ID', 'ИН группы', 50);
+Table.AddColumnsInf('Weekday_ID', 'ИН недели', 50);
+Table.AddColumnsInf('Pair_ID', 'ИН пары', 50);
+Table.AddColumnsInf('Subject_ID', 'ИН предмета', 50);
+Table.AddColumnsInf('Educ_ID', 'ИН пары', 50);
+Table.AddColumnsInf('Teacher_ID', 'ИН учителя', 50);
+Table.AddColumnsInf('Class_ID', 'ИН класса', 50);
+
+end.
+

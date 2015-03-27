@@ -1,0 +1,26 @@
+object MenuForm: TMenuForm
+  Left = 1354
+  Height = 91
+  Top = 255
+  Width = 236
+  Caption = 'Меню'
+  Menu = MainMenu
+  OnCreate = FormCreate
+  Position = poScreenCenter
+  LCLVersion = '1.0.12.0'
+  object MainMenu: TMainMenu
+    left = 32
+    top = 8
+    object ReferenceMenu: TMenuItem
+      Caption = 'Справочник'
+    end
+    object AboutTheProgramMenu: TMenuItem
+      Caption = 'О программе'
+      OnClick = AboutTheProgramMenuClick
+    end
+    object ExitMenu: TMenuItem
+      Caption = 'Выход'
+      OnClick = ExitMenuClick
+    end
+  end
+end

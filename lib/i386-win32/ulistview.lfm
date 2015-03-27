@@ -1,0 +1,53 @@
+object ListViewForm: TListViewForm
+  Left = 1113
+  Height = 715
+  Top = 211
+  Width = 647
+  Caption = 'ListViewForm'
+  ClientHeight = 715
+  ClientWidth = 647
+  Position = poScreenCenter
+  LCLVersion = '1.2.4.0'
+  object DBGrid: TDBGrid
+    Left = 0
+    Height = 663
+    Top = 0
+    Width = 646
+    Color = clWindow
+    Columns = <>
+    DataSource = DataSource
+    TabOrder = 0
+  end
+  object DBNavigator: TDBNavigator
+    Left = 0
+    Height = 49
+    Top = 664
+    Width = 647
+    BevelOuter = bvNone
+    ChildSizing.EnlargeHorizontal = crsScaleChilds
+    ChildSizing.EnlargeVertical = crsScaleChilds
+    ChildSizing.ShrinkHorizontal = crsScaleChilds
+    ChildSizing.ShrinkVertical = crsScaleChilds
+    ChildSizing.Layout = cclLeftToRightThenTopToBottom
+    ChildSizing.ControlsPerLine = 100
+    ClientHeight = 49
+    ClientWidth = 647
+    DataSource = DataSource
+    Options = []
+    TabOrder = 1
+    VisibleButtons = [nbFirst, nbPrior, nbNext, nbLast]
+  end
+  object SQLQuery: TSQLQuery
+    FieldDefs = <>
+    Database = MDDBConnection.IBConnection
+    Transaction = MDDBConnection.SQLTransaction
+    Params = <>
+    left = 664
+    top = 56
+  end
+  object DataSource: TDataSource
+    DataSet = SQLQuery
+    left = 664
+    top = 8
+  end
+end

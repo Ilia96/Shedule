@@ -1,0 +1,27 @@
+object MDDBConnection: TMDDBConnection
+  OldCreateOrder = False
+  Height = 80
+  HorizontalOffset = 1357
+  VerticalOffset = 125
+  Width = 195
+  object IBConnection: TIBConnection
+    Connected = True
+    LoginPrompt = False
+    DatabaseName = 'D:\Users\lipov.ima\Documents\DB\SCHEDULE.FDB'
+    KeepConnection = False
+    Password = 'masterkey'
+    Transaction = SQLTransaction
+    UserName = 'SYSDBA'
+    CharSet = 'UTF8'
+    LogEvents = []
+    left = 32
+    top = 16
+  end
+  object SQLTransaction: TSQLTransaction
+    Active = False
+    Action = caNone
+    Database = IBConnection
+    left = 128
+    top = 16
+  end
+end
